@@ -1,0 +1,15 @@
+@import "../../assets/_colors";
+
+p{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 50px;
+  width: 35vw;
+  font-size: 3.5vw;
+  font-weight: bold;
+  color: $dark-red;
+}

@@ -1,0 +1,6 @@
+<div style="position: absolute; top: 30px;">
+  <div *ngIf="floor$ | async as flor">
+    <p>{{flor.id}}</p>
+  </div>
+  <button routerLink="/city" >Go to city view</button>
+</div>
