@@ -1,5 +1,8 @@
 import {Routes} from '@angular/router';
 import {HomePageComponent} from './home-page/home-page.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {TowerComponent} from './tower/tower.component';
+import {FloorComponent} from './floor/floor.component';
 
 /**
  * All routes go towards Wrapper that prepares the stage for vr modules
@@ -15,8 +18,7 @@ export const APP_ROUTES: Routes = [
     component: HomePageComponent,
     // data: { title: 'Heroes List' }
   },
-  // @todo: add Tower component to route
-  // { path: 'tower/:id',      component: HeroDetailComponent },
-  // @todo: add 404 component to route
-  // { path: '**', component: PageNotFoundComponent }
+  { path: 'tower/:id',      component: TowerComponent },
+  { path: 'floor/:id',      component: FloorComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];

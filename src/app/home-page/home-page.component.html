@@ -1,17 +1,25 @@
 <!--cursor="rayOrigin: mouse"-->
-<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"  >
+<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" debug >
   <!-- Mouse controller -->
   <a-entity cursor="rayOrigin: mouse"></a-entity>
   <a-camera>
     <a-cursor></a-cursor>
     <!-- Or <a-entity cursor></a-entity> -->
   </a-camera>
-  <a-box position="0 1 -3" height="0.5" rotation="0 45 0" color="#ff0000" (mouseenter) ="mouseEnter($event)"  (mouseleave) ="mouseLeave($event)"></a-box>
-  <a-box position="0 1.5 -3" height="0.5" rotation="0 45 0" color="#ff0000" ></a-box>
-  <a-box position="0 2 -3" height="0.5" rotation="0 45 0" color="#ff0000"></a-box>
+
+  <a-box  *ngFor="let flor of tower"
+          [attr.position]="flor.position | aframe"
+          [attr.height]="flor.height"
+          [attr.rotation]="flor.rotation"
+          [attr.color]="flor.color | aframe"
+          (mouseenter) ="mouseEnter(flor.id)"
+          (mouseleave) ="mouseLeave(flor.id)"
+          (click)="click($event, flor.id)"
+  ></a-box>
 
   <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
   <a-sky color="#ECECEC"></a-sky>
 </a-scene>
 
 
+<!--<div *ngFor="let flor of tower"></div>-->
