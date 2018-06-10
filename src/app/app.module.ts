@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import {HomePageModule} from './home-page/home-page.module';
-import {APP_ROUTES} from './app.router';
+import { HomePageModule } from './home-page/home-page.module';
+import { APP_ROUTES } from './app.router';
 import { MenuComponent } from './menu/menu.component';
-import {AframePipe} from './shared/pipes/aframe.pipe';
+import { AframePipe } from './shared/pipes/aframe.pipe';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TowerComponent } from './tower/tower.component';
 import { FloorComponent } from './floor/floor.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,10 @@ import { FloorComponent } from './floor/floor.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    // Fire base
+    AngularFireModule,
+    AngularFireDatabaseModule,
+
     HomePageModule,
 
     RouterModule.forRoot(

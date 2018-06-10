@@ -1,25 +1,56 @@
-<!--cursor="rayOrigin: mouse"-->
-<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js" debug >
+<a-scene>
+  <a-assets>
+    <a-asset-item id="tree-obj" src="/assets/models/trees.obj"></a-asset-item>
+    <a-asset-item id="tree-mtl" src="/assets/models/trees.mtl"></a-asset-item>
+    <a-asset-item id="city-obj" src="/assets/models/city.obj"></a-asset-item>
+    <a-asset-item id="city-mtl" src="/assets/models/city.mtl"></a-asset-item>
+  </a-assets>
+
   <!-- Mouse controller -->
   <a-entity cursor="rayOrigin: mouse"></a-entity>
-  <a-camera>
-    <a-cursor></a-cursor>
-    <!-- Or <a-entity cursor></a-entity> -->
-  </a-camera>
 
-  <a-box  *ngFor="let flor of tower"
-          [attr.position]="flor.position | aframe"
-          [attr.height]="flor.height"
-          [attr.rotation]="flor.rotation"
-          [attr.color]="flor.color | aframe"
-          (mouseenter) ="mouseEnter(flor.id)"
-          (mouseleave) ="mouseLeave(flor.id)"
-          (click)="click($event, flor.id)"
-  ></a-box>
 
-  <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+  <!--<a-box *ngFor="let flor of tower"-->
+         <!--[attr.position]="flor.position"-->
+         <!--[attr.height]="flor.height"-->
+         <!--[attr.rotation]="flor.rotation"-->
+         <!--[attr.color]="flor.color"-->
+         <!--[attr.scale]="flor.scale"-->
+         <!--(mouseenter)="mouseEnter(flor.id)"-->
+         <!--(mouseleave)="mouseLeave(flor.id)"-->
+         <!--(click)="click($event, flor.id)"-->
+  <!--&gt;</a-box>-->
+
+  <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#cfcc99"></a-plane>
+
   <a-sky color="#ECECEC"></a-sky>
+
+  <!--<a-entity-->
+    <!--gltf-model="#trees-gltf"-->
+    <!--height="2"-->
+    <!--width="2"-->
+    <!--scale="2.0 2.0 2.0" position="1 1 -7'"-->
+    <!--rotation="0 35 0"-->
+  <!--&gt;</a-entity>-->
+
+  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4 0 -8"  scale=".2 .2 .2" ></a-obj-model>
+  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4.5 0 -7"  scale=".2 .2 .2" ></a-obj-model>
+  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="1 0 -5"  scale=".2 .2 .2" ></a-obj-model>
+  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="5 0 -2"  scale=".2 .2 .2" ></a-obj-model>
+  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="2.2 0 -8"  scale=".2 .2 .2" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="4 0 -9" scale="3 3 3" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="7 0 -2.5" scale="3 3 3" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="6 0 -4.5" scale="3 3 3" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="8 0 -6.5" scale="3 3 3" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="9 0 -4.5" scale="3 3 3" ></a-obj-model>
+  <a-obj-model src="#city-obj" mtl="#city-mtl" position="12 0 -5.5" scale="3 3 3" ></a-obj-model>
+
+  <!-- Camera -->
+  <a-entity position="5 3 0.5" rotation="-11 48 0">
+    <a-camera >
+      <!--<a-cursor></a-cursor> <-- camera cursor ( VR-controls) -->
+    </a-camera>
+  </a-entity>
+
 </a-scene>
 
-
-<!--<div *ngFor="let flor of tower"></div>-->
