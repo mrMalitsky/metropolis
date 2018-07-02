@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {of} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
-import {Floor} from '../../shared/floor';
+import {FloorModel} from '../../shared/floor.model';
 
 const FLOORS = [
-  new Floor(1, 'Mr. Nice'),
-  new Floor(2, 'Narco'),
-  new Floor(3, 'Bombasto'),
-  new Floor(4, 'Celeritas'),
-  new Floor(5, 'Magneta'),
-  new Floor(6, 'RubberMan')
+  new FloorModel(1, 'Mr. Nice'),
+  new FloorModel(2, 'Narco'),
+  new FloorModel(3, 'Bombasto'),
+  new FloorModel(4, 'Celeritas'),
+  new FloorModel(5, 'Magneta'),
+  new FloorModel(6, 'RubberMan')
 ];
 
 @Injectable({

@@ -5,7 +5,7 @@ import {switchMap} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs';
 
 import {FloorService} from './services/floor.service';
-import {Floor} from '../shared/floor';
+import {FloorModel} from '../shared/floor.model';
 
 @Component({
   selector: 'app-floor',
@@ -14,7 +14,7 @@ import {Floor} from '../shared/floor';
 })
 export class FloorComponent implements OnInit {
 
-  floor$: Observable<Floor>;
+  floor$: Observable<FloorModel>;
   selectedId: number;
 
   constructor(

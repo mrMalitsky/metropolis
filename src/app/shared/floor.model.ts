@@ -1,3 +1,3 @@
-export class Floor {
+export class FloorModel {
   constructor(public id: number, public name: string) { }
 }

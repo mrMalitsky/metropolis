@@ -13,6 +13,7 @@ import { TowerComponent } from './tower/tower.component';
 import { FloorComponent } from './floor/floor.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
   imports: [
     BrowserModule,
     HttpClientModule,
+
     // Fire base
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
 
     HomePageModule,

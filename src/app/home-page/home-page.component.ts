@@ -79,7 +79,8 @@ export class HomePageComponent implements OnInit {
   }
 
   public click(e: EventListener, i: number) {
-    this.router.navigate(['/floor',  i ]);
+    // this.router.navigate(['/floor',  i ]);
+    console.log(e);
   }
 
   public mouseEnter(id: number) {
