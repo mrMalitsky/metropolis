@@ -1,19 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageModule } from './home-page/home-page.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { APP_ROUTES } from './app.router';
-import { MenuComponent } from './menu/menu.component';
-import { AframePipe } from './shared/pipes/aframe.pipe';
-import { AboutComponent } from './about/about.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TowerComponent } from './tower/tower.component';
-import { FloorComponent } from './floor/floor.component';
+// Angular FireBase 2
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {environment} from '../environments/environment';
+// Modules
+import { HomePageModule } from './home-page/home-page.module';
+// Pipes
+import { AframePipe } from './shared/pipes/aframe.pipe';
+// Components
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MenuComponent } from './menu/menu.component';
+import { AboutComponent } from './about/about.component';
+import { AppComponent } from './app.component';
+import { TowerComponent } from './tower/tower.component';
+import { FloorComponent } from './floor/floor.component';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import { DbHelperComponent } from './db-helper/db-helper.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,8 @@ import {environment} from '../environments/environment';
     AboutComponent,
     PageNotFoundComponent,
     TowerComponent,
-    FloorComponent
+    FloorComponent,
+    DbHelperComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,8 @@ import {environment} from '../environments/environment';
 
     // Fire base
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    // AngularFireDatabaseModule,
 
     HomePageModule,
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import {Tower} from '../tower.model';
+import {Tower} from '../../tower.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,12 @@ export class TowersService {
   }
 
   updateTower(tower: Tower) {
-    this.towersList.update(tower.$key, {
+    this.towersList.update(tower.id, {
       ...tower,
     });
   }
 
-  deleteTower({$key}: Partial<Tower>) {
-    this.towersList.remove($key);
+  deleteTower({id}: Partial<Tower>) {
+    this.towersList.remove(id);
   }
 }

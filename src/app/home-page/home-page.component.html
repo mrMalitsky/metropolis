@@ -1,15 +1,73 @@
+<div *ngFor="let tower of towersDBTest | async">
+  <h3>{{tower | json}}</h3>
+</div>
 <a-scene>
   <a-assets>
-    <a-asset-item id="tree-obj" src="/assets/models/trees.obj"></a-asset-item>
-    <a-asset-item id="tree-mtl" src="/assets/models/trees.mtl"></a-asset-item>
-    <a-asset-item id="city-obj" src="/assets/models/city.obj"></a-asset-item>
-    <a-asset-item id="city-mtl" src="/assets/models/city.mtl"></a-asset-item>
-    <img id="road-mtl" src="/assets/textures/road2.jpg" >
+    <!-- @todo: load all objects from CDN (check a-frame 'cloud')-->
+    <!--<a-asset-item id="tree-obj" src="/assets/models/trees.obj"></a-asset-item>-->
+    <!--<a-asset-item id="tree-mtl" src="/assets/models/trees.mtl"></a-asset-item>-->
+    <!--<a-asset-item id="city-obj" src="/assets/models/city.obj"></a-asset-item>-->
+    <!--<a-asset-item id="city-mtl" src="/assets/models/city.mtl"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower-mtl" src="/assets/models/tower1.mtl"></a-asset-item>-->
+    <a-asset-item id="tower1" src="/assets/models/tower1.obj"></a-asset-item>
+    <a-asset-item id="tower2" src="/assets/models/tower2.obj"></a-asset-item>
+
+
+    <!--<a-asset-item id="tower3" src="/assets/models/tower3.obj"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower4" src="/assets/models/tower4.obj"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower5" src="/assets/models/tower5.obj"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower6" src="/assets/models/tower6.obj"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower7" src="/assets/models/tower7.obj"></a-asset-item>-->
+
+    <!--<a-asset-item id="tower8" src="/assets/models/tower8.obj"></a-asset-item>-->
+
+
+    <!--<a-asset-item id="tower9" src="/assets/models/tower9.obj"></a-asset-item>-->
+
+    <a-asset-item id="city-downtown-obj" src="/assets/models/city/CityDowntown.obj"></a-asset-item>
+
+    <img id="road-mtl" src="/assets/textures/road_texture.jpg" >
+    <img id="asphalt-mtl" src="/assets/textures/road_texture copy.jpg" >
+    <img id="city-plan-mtl" src="/assets/textures/city-plan.jpg">
+
+    <!--ADD HERE ALL REUSABLE OBJECTS (as a mixin)-->
   </a-assets>
+
+  <!--<a-entity hello-world></a-entity>-->
+
+  <!--LIGHT-->
+    <!--<a-entity light="type: directional; color: #eedfb0; intensity: 0.5" position="10 10 -3"></a-entity >-->
+    <!--<a-sky color="#ECECEC"></a-sky>-->
+    <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
+    <a-light type="ambient" color="#fff"></a-light>
+  <!--LIGHT-->
 
   <!-- Mouse controller -->
   <a-entity cursor="rayOrigin: mouse"></a-entity>
+  <!--<a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>-->
+  <!--<a-entity position="0 2.2 4">-->
+    <!--<a-entity camera look-controls wasd-controls>-->
+      <!--<a-entity position="0 0 -3"-->
+                <!--geometry="primitive: ring; radiusInner: 200; radiusOuter: 300;"-->
+                <!--material="color: cyan; shader: flat"-->
+                <!--cursor="maxDistance: 30; fuse: true">-->
+        <!--<a-animation begin="click" easing="ease-in" attribute="scale"-->
+                     <!--fill="forwards" from="0.2 0.2 0.2" to="1 1 1" dur="150"></a-animation>-->
+        <!--<a-animation begin="fusing" easing="ease-in" attribute="scale"-->
+                     <!--fill="backwards" from="1 1 1" to="0.2 0.2 0.2" dur="1500"></a-animation>-->
+      <!--</a-entity>-->
+    <!--</a-entity>-->
+  <!--</a-entity>-->
+  <!-- Mouse controller -->
 
+  <a-entity id="towers-area_1">
+    <!--<a-obj-model src="#city-downtown-obj" mtl="#tower-mtl" color="#d9d4cb" position="-2.5 0 -4.75"  [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+  </a-entity>
 
   <!--<a-box *ngFor="let flor of tower"-->
          <!--[attr.position]="flor.position"-->
@@ -23,98 +81,211 @@
   <!--&gt;</a-box>-->
 
   <!--GROUND-->
-    <a-plane position="0 0 0" rotation="-90 0 0" width="60" height="60" color="#cfcc99"></a-plane>
+  <a-entity id="ground" data="test12">
+    <a-plane data-id="1" position="1.2 -0.09 2.1" rotation="-90 0 0" height="7.75" width="8" color="#cfcc99"></a-plane>
+    <a-plane position="1.2 0.001 2.1" src="#city-plan-mtl" rotation="-90 0 0" height="7.75" width="8" color="#cfcc99"></a-plane>
+  </a-entity>
+  <!--GROUND-->
 
   <!--TOWERS AREAS-->
   <a-entity id="towers-areas">
   <!-- LINE-->
     <a-entity id="towers-area_1">
-      <a-box position="19.5 0 18" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="19.5 0 6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="19.5 0 -6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="19.5 0 -18" height="0.27" width="8" depth="12"></a-box>
+      <a-box position="4.6 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="4.6 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="4.6 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="4.6 -0.007 .56"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="4.6 -0.007 -1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
     </a-entity>
   <!-- LINE-->
     <a-entity id="towers-area_2">
-      <a-box position="9.5 0 18" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="9.5 0 6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="9.5 0 -6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="9.5 0 -18" height="0.27" width="8" depth="12"></a-box>
+      <a-box position="3.5 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="3.5 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="3.5 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="3.5 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="3.5 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
     </a-entity>
   <!-- LINE-->
     <a-entity id="towers-area_3">
-      <a-box position="0 0 18" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="0 0 6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="0 0 -6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="0 0 -18" height="0.27" width="8" depth="12"></a-box>
+      <a-box position="2.3 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="2.3 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="2.3 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="2.3 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="2.3 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
     </a-entity>
   <!-- LINE-->
     <a-entity id="towers-area_4">
-      <a-box position="-9.5 0 18" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-9.5 0 6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-9.5 0 -6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-9.5 0 -18" height="0.27" width="8" depth="12"></a-box>
+      <a-box position="1.2 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="1.2 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="1.2 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="1.2 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="1.2 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
     </a-entity>
   <!-- LINE-->
     <a-entity id="towers-area_5">
-      <a-box position="-19.5 0 18" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-19.5 0 6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-19.5 0 -6" height="0.27" width="8" depth="12"></a-box>
-      <a-box position="-19.5 0 -18" height="0.27" width="8" depth="12" ></a-box>
+      <a-box position=".09 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position=".09 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position=".09 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position=".09 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position=".09 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
     </a-entity>
+  <!-- LINE-->
+    <a-entity id="towers-area_6">
+      <a-box position="-1.05 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-1.05 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-1.05 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-1.05 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-1.05 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+    </a-entity>
+  <!-- LINE-->
+    <a-entity id="towers-area_7">
+      <a-box position="-2.2 -0.007 5.15" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-2.2 -0.007 3.62" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-2.2 -0.007 2.1" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-2.2 -0.007 .56" rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+      <a-box position="-2.2 -0.007 -1"  rotation="-90 0 0" height="1.4" width="1" depth=".015" color="#ff8b00"></a-box>
+    </a-entity>
+    <!--217.7-->
   </a-entity>
   <!--TOWERS AREAS-->
 
-  <!--ROADS-->
-    <!--COLS-->
-    <a-entity id="road-cols">
-      <a-plane position="0 0.02 29"  rotation="-90 0 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="0 0.02 17"  rotation="-90 0 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="0 0.02 2"   rotation="-90 0 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="0 0.02 -10" rotation="-90 0 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="0 0.02 -22" rotation="-90 0 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-    </a-entity>
-    <!--ROWS-->
-    <a-entity id="road-rows">
-      <a-plane position="29 0.025 0"    rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="17 0.025 0"    rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="10 0.025 0"    rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="3 0.25 0"      rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="-4 0.025 0"    rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-      <a-plane position="-24 0.025 0"   rotation="-90 90 0" width="60" height="2" material="src:#road-mtl; repeat: 20"></a-plane>
-    </a-entity>
-  <!--ROADS-->
+  <!--&lt;!&ndash;ROADS&ndash;&gt;-->
+    <!--&lt;!&ndash;COLS&ndash;&gt;-->
+    <!--<a-entity id="road-cols">-->
+      <!--<a-plane position="0 0.01 44.5"  rotation="-90 0 0" width="60" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="0 0.01 22"  rotation="-90 0 0" width="60" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="0 0.01 0"   rotation="-90 0 0" width="60" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="0 0.01 -22" rotation="-90 0 0" width="60" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="0 0.01 -44.5" rotation="-90 0 0" width="60" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+    <!--</a-entity>-->
+    <!--&lt;!&ndash;COLS&ndash;&gt;-->
+    <!--&lt;!&ndash;ROWS&ndash;&gt;-->
+    <!--<a-entity id="road-rows">-->
+      <!--<a-plane position="29.5  0.015 0" rotation="-90 90 0" width="89.5" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="15  0.015 0" rotation="-90 90 0" width="89.5" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="0   0.015 0" rotation="-90 90 0" width="89.5" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="-15 0.015 0" rotation="-90 90 0" width="89.5" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+      <!--<a-plane position="-29.5 0.015 0" rotation="-90 90 0" width="89.5" height="1" material="src:#road-mtl; repeat: 30"></a-plane>-->
+    <!--</a-entity>-->
+    <!--&lt;!&ndash;ROWS&ndash;&gt;-->
+    <!--&lt;!&ndash;CROSSING&ndash;&gt;-->
+    <!--<a-entity id="road-crossing">-->
+    <!--&lt;!&ndash;LINE&ndash;&gt;-->
+      <!--<a-plane position="29  0.02 44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="15  0.02 44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="0   0.02 44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-15 0.02 44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-29 0.02 44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+    <!--&lt;!&ndash;LINE&ndash;&gt;-->
+      <!--<a-plane position="29  0.02 22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="15  0.02 22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="0   0.02 22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-15 0.02 22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-29 0.02 22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+    <!--&lt;!&ndash;LINE&ndash;&gt;-->
+      <!--<a-plane position="29  0.02 0.01" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="15  0.02 0.01" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="0   0.02 0.01" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-15 0.02 0.01" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-29 0.02 0.01" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+    <!--&lt;!&ndash;LINE&ndash;&gt;-->
+      <!--<a-plane position="29  0.02 -22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="15  0.02 -22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="0   0.02 -22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-15 0.02 -22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-29 0.02 -22" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+    <!--&lt;!&ndash;LINE&ndash;&gt;-->
+      <!--<a-plane position="29  0.02 -44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="15  0.02 -44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="0   0.02 -44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-15 0.02 -44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+      <!--<a-plane position="-29 0.02 -44.5" rotation="-90 0 0" width="0.98" height="0.9" material="src:#asphalt-mtl; repeat: 1"></a-plane>-->
+
+    <!--</a-entity>-->
+    <!--&lt;!&ndash;CROSSING&ndash;&gt;-->
+
+  <!--&lt;!&ndash;ROADS&ndash;&gt;-->
+
+  <!--&lt;!&ndash;TREES&ndash;&gt;-->
+    <!--<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="13.5 0 18"  scale=".5 .5 .5"></a-obj-model>-->
+  <!--&lt;!&ndash;TREES&ndash;&gt;-->
 
 
 
-  <a-sky color="#ECECEC"></a-sky>
+  <!--TOWERS-->
+  <a-entity id="towers-area_1" >
 
-  <!--<a-entity-->
-    <!--gltf-model="#trees-gltf"-->
-    <!--height="2"-->
-    <!--width="2"-->
-    <!--scale="2.0 2.0 2.0" position="1 1 -7'"-->
-    <!--rotation="0 35 0"-->
-  <!--&gt;</a-entity>-->
+    <a-obj-model
+      *ngFor="let tower of towers"
+      [attr.data-id]="tower.id"
+      [attr.src]="'#' + tower.src"
+      [attr.position]="tower.position"
+      [attr.scale]="tower.scale"
+      [attr.rotation]="tower.rotation"
+      [attr.color]="tower.color"
+    ></a-obj-model>
+    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="12 0 15" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="13 0 16" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="14 0 17" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="15 0 18" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+  </a-entity>
+  <!--<a-entity id="towers-area_2">-->
+    <!--<a-obj-model src="#tower2" mtl="#tower-mtl" position="30 0 27"  scale=".075 .085 .075" rotation="0 -90 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower3" mtl="#tower-mtl" position="26 0 38"  scale=".06 .06 .06" rotation="0 -90 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower4" mtl="#tower-mtl" position="20 0 22"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower4" mtl="#tower-mtl" position="17.5 0 23"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower4" mtl="#tower-mtl" position="15 0 22"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower4" mtl="#tower-mtl" position="12.5 0 23"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="36 0 33"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="34 0 33"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="32 0 33"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="30 0 33"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="33.5 0 45"  scale=".06 .06 .06" rotation="0 -90 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower7" mtl="#tower-mtl" position="28 0 45"  scale=".06 .06 .06" rotation="0 -90 0"></a-obj-model>-->
+  <!--</a-entity>-->
+  <!--<a-entity id="towers-area_5">-->
+    <!--<a-obj-model src="#tower5" mtl="#tower-mtl" position="-5 0 10"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+    <!--<a-obj-model src="#tower6" mtl="#tower-mtl" position="-6.5 0 -4"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
 
-  <a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4 0 -8"  scale=".2 .2 .2"></a-obj-model>
-  <!--<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4.5 0 -7"  scale=".2 .2 .2" ></a-obj-model>-->
-  <!--<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="1 0 -5"  scale=".2 .2 .2" ></a-obj-model>-->
-  <!--<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="5 0 -2"  scale=".2 .2 .2" ></a-obj-model>-->
-  <!--<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="2.2 0 -8"  scale=".2 .2 .2" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="4 0 -9" scale="3 3 3" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="7 0 -2.5" scale="3 3 3" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="6 0 -4.5" scale="3 3 3" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="8 0 -6.5" scale="3 3 3" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="9 0 -4.5" scale="3 3 3" ></a-obj-model>-->
-  <!--<a-obj-model src="#city-obj" mtl="#city-mtl" position="12 0 -5.5" scale="3 3 3" ></a-obj-model>-->
+  <!--</a-entity>-->
+  <!--<a-entity id="towers-area_6">-->
+    <!--<a-obj-model src="#tower8" mtl="#tower-mtl" position="-24 0 -4"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+  <!--</a-entity>-->
+  <!--<a-entity id="towers-area_6">-->
+    <!--<a-obj-model src="#tower9" mtl="#tower-mtl" position="-27 0 -23"  scale=".06 .06 .06" rotation="0 0 0"></a-obj-model>-->
+  <!--</a-entity>-->
+  <!--&lt;!&ndash;TOWERS&ndash;&gt;-->
+
+
+  <!--<a-sky color="#ECECEC"></a-sky>-->
+
+  <!--&lt;!&ndash;<a-entity&ndash;&gt;-->
+    <!--&lt;!&ndash;gltf-model="#trees-gltf"&ndash;&gt;-->
+    <!--&lt;!&ndash;height="2"&ndash;&gt;-->
+    <!--&lt;!&ndash;width="2"&ndash;&gt;-->
+    <!--&lt;!&ndash;scale="2.0 2.0 2.0" position="1 1 -7'"&ndash;&gt;-->
+    <!--&lt;!&ndash;rotation="0 35 0"&ndash;&gt;-->
+  <!--&lt;!&ndash;&gt;</a-entity>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="13.5 0 18"  scale=".2 .2 .2"></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4.5 0 -7"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="1 0 -5"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="5 0 -2"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="2.2 0 -8"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="4 0 -9" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="7 0 -2.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="6 0 -4.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="8 0 -6.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="9 0 -4.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
+  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="12 0 -5.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
 
   <!-- Camera -->
-  <a-entity position="25 20 25" rotation="-11 48 0">
-    <a-camera >
-      <!--<a-cursor></a-cursor> <-- camera cursor ( VR-controls) -->
-    </a-camera>
-  </a-entity>
+  <!--<a-entity position="5.6 .5 4.5" rotation="0 68 0" scale=".2 .2 .2">-->
+    <!--<a-camera >-->
+      <!--&lt;!&ndash;<a-cursor></a-cursor> <&#45;&#45; camera cursor ( VR-controls) &ndash;&gt;-->
+    <!--</a-camera>-->
+  <!--</a-entity>-->
+  <a-entity camera look-controls orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 180; initialPosition: 0 5 15"></a-entity>
 
 </a-scene>
 
