@@ -1,14 +1,18 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomePageRoutingModule } from './home-page-routing.module';
 import {HomePageComponent} from './home-page.component';
+import {DbHelperComponent} from '../db-helper/db-helper.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    // HomePageRoutingModule
+    ReactiveFormsModule,
   ],
-  declarations: [HomePageComponent],
+  declarations: [
+    HomePageComponent,
+    DbHelperComponent,
+  ],
   exports: [HomePageComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# Project assets
+/src/assets
+
 # dependencies
 /node_modules
 

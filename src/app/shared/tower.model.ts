@@ -1,9 +1,11 @@
+import {CoordinatesInterface} from './services/interfaces/coordinates';
+
 export class Tower {
 
   /**
    * Unique tower identificator
    */
-  id: string;
+  id?: string;
 
   /**
    * Name of tower
@@ -11,19 +13,19 @@ export class Tower {
   name: string;
 
   /**
-   * Position of tower on the scene (example: '9.277 0 6.91')
+   * Position of tower on the scene (example: {x: 9.2, y: 0, z: 6.9})
    */
-  position: string;
+  position: CoordinatesInterface;
 
   /**
-   * Rotation of tower on the scene (example: '0 -90 0')
+   * Rotation of tower on the scene (example: {x: 0, y: -90, z: 0})
    */
-  rotation: string;
+  rotation: CoordinatesInterface;
 
   /**
-   * Scale of tower on the scene (example: '1 1 1')
+   * Scale of tower on the scene (example: {x: 1, y: 1, z: 1})
    */
-  scale: string;
+  scale: CoordinatesInterface;
 
   /**
    * Source of tower model (example: 'tower1')
@@ -41,9 +43,9 @@ export class Tower {
   community: string;
 
   /**
-   * Id of tower sub_community (example: '1')
+   * Id of tower subCommunity (example: '1')
    */
-  sub_community: string;
+  subCommunity: string;
 
   /**
    * Color of the tower (example: '1')

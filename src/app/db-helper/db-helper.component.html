@@ -1,3 +1,27 @@
-<p>
-  db-helper works!
-</p>
+<div class="overlay">
+  <div *ngIf="selectedTower">
+    <p><strong>Object: </strong>{{selectedTower.src}}</p>
+    <p><strong>id: </strong>{{selectedTower.id}}</p>
+    <p><strong>Position: </strong>{{selectedTower.position.x + ' ' + selectedTower.position.y + ' ' + selectedTower.position.z}}</p>
+    <p><strong>Rotation: </strong>{{selectedTower.rotation.x + ' ' + selectedTower.rotation.y + ' ' + selectedTower.rotation.z}}</p>
+    <p><strong>Scale: </strong>{{selectedTower.scale.x + ' ' + selectedTower.scale.y + ' ' + selectedTower.scale.z}}</p>
+    <button (click)="onClickSave()">Save</button>
+  </div>
+
+  <form [formGroup]="newTowerForm" (ngSubmit)="onAddTower()">
+    <p>
+      <select name="towerObjects" id="towers" formControlName="towerType">
+        <option *ngFor="let type of towersTypes" [ngValue]="type" >{{type}}</option>
+      </select>
+    </p>
+    <!--<p>-->
+      <!--&lt;!&ndash;<label for="community">Community</label>&ndash;&gt;-->
+      <!--<input id="community" type="text" formControlName="community">-->
+    <!--</p>-->
+    <p>
+      <!--<label for="subCommunity">SubCommunity</label>-->
+      <input id="subCommunity" type="text" formControlName="subCommunity">
+    </p>
+    <button  type="submit" >Add</button>
+  </form>
+</div>

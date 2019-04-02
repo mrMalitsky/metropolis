@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { APP_ROUTES } from './app.router';
 // Angular FireBase 2
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 // Modules
 import { HomePageModule } from './home-page/home-page.module';
@@ -18,8 +18,8 @@ import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { TowerComponent } from './tower/tower.component';
 import { FloorComponent } from './floor/floor.component';
-import {AngularFirestoreModule} from 'angularfire2/firestore';
-import { DbHelperComponent } from './db-helper/db-helper.component';
+import {TowersService} from './shared/services/towers/towers.service';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,7 @@ import { DbHelperComponent } from './db-helper/db-helper.component';
     AboutComponent,
     PageNotFoundComponent,
     TowerComponent,
-    FloorComponent,
-    DbHelperComponent
+    FloorComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +38,7 @@ import { DbHelperComponent } from './db-helper/db-helper.component';
     // Fire base
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    // AngularFireDatabaseModule,
+    AngularFireDatabaseModule,
 
     HomePageModule,
 
@@ -48,7 +47,7 @@ import { DbHelperComponent } from './db-helper/db-helper.component';
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [TowersService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

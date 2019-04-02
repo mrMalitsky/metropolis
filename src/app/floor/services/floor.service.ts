@@ -21,7 +21,7 @@ export class FloorService {
 
   getFloors() { return of(FLOORS); }
 
-  getFloor(id: number | string) {
+  getFloor(id: number|string) {
     console.log('sddsf', id);
     return this.getFloors().pipe(
       map(floors => floors.find(floor => floor.id === +id))

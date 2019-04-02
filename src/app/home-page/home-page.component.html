@@ -1,6 +1,7 @@
-<div *ngFor="let tower of towersDBTest | async">
-  <h3>{{tower | json}}</h3>
-</div>
+
+<!-- DB Helper Component-->
+<app-db-helper></app-db-helper>
+
 <a-scene>
   <a-assets>
     <!-- @todo: load all objects from CDN (check a-frame 'cloud')-->
@@ -10,8 +11,12 @@
     <!--<a-asset-item id="city-mtl" src="/assets/models/city.mtl"></a-asset-item>-->
 
     <!--<a-asset-item id="tower-mtl" src="/assets/models/tower1.mtl"></a-asset-item>-->
-    <a-asset-item id="tower1" src="/assets/models/tower1.obj"></a-asset-item>
-    <a-asset-item id="tower2" src="/assets/models/tower2.obj"></a-asset-item>
+    <a-asset-item
+      *ngFor="let type of towerTypes"
+      [attr.id]="type"
+      [attr.src]="'/assets/models/' + type + '.obj'"
+    ></a-asset-item>
+    <!--<a-asset-item id="tower2" src="/assets/models/tower2.obj"></a-asset-item>-->
 
 
     <!--<a-asset-item id="tower3" src="/assets/models/tower3.obj"></a-asset-item>-->
@@ -38,7 +43,7 @@
     <!--ADD HERE ALL REUSABLE OBJECTS (as a mixin)-->
   </a-assets>
 
-  <!--<a-entity hello-world></a-entity>-->
+  <a-entity environment="shadow: true; shadowSize: 10; preset:default;" ></a-entity>
 
   <!--LIGHT-->
     <!--<a-entity light="type: directional; color: #eedfb0; intensity: 0.5" position="10 10 -3"></a-entity >-->
@@ -213,22 +218,29 @@
 
 
   <!--TOWERS-->
-  <a-entity id="towers-area_1" >
 
-    <a-obj-model
-      *ngFor="let tower of towers"
-      [attr.data-id]="tower.id"
-      [attr.src]="'#' + tower.src"
-      [attr.position]="tower.position"
-      [attr.scale]="tower.scale"
-      [attr.rotation]="tower.rotation"
-      [attr.color]="tower.color"
-    ></a-obj-model>
-    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="12 0 15" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
-    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="13 0 16" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
-    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="14 0 17" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
-    <!--<a-obj-model src="#tower1" color="#d9d4cb" position="15 0 18" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
-  </a-entity>
+  <!--<a-entity *ngIf="towersList" id="Towers" >-->
+    <a-entity *ngFor="let towers of towersList | keyvalue" [attr.id]="'towers_' + towers.key" [attr.data-id]="towers.key" >
+
+      <a-obj-model
+        *ngFor="let tower of towers.value; let i = index"
+        [attr.data-id]="tower.id"
+        [attr.id]="i + '_' + tower.src"
+        [attr.src]="'#' + tower.src"
+        [attr.position]="tower.position.x + ' ' + tower.position.y + ' ' + tower.position.z"
+        [attr.scale]="tower.scale.x + ' ' + tower.scale.y + ' ' + tower.scale.z"
+        [attr.rotation]="tower.rotation.x + ' ' + tower.rotation.y + ' ' + tower.rotation.z"
+        [attr.color]="'#ebd6be'"
+        (click)="click($event, tower.id)"
+      ></a-obj-model>
+
+
+      <!--<a-obj-model src="#tower1" color="#d9d4cb" position="12 0 15" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+      <!--<a-obj-model src="#tower1" color="#d9d4cb" position="13 0 16" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+      <!--<a-obj-model src="#tower1" color="#d9d4cb" position="14 0 17" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+      <!--<a-obj-model src="#tower1" color="#d9d4cb" position="15 0 18" [attr.scale]="cityConfig.towers.scale" [attr.rotation]="cityConfig.towers.rotation"></a-obj-model>-->
+    </a-entity>
+  <!--</a-entity>-->
   <!--<a-entity id="towers-area_2">-->
     <!--<a-obj-model src="#tower2" mtl="#tower-mtl" position="30 0 27"  scale=".075 .085 .075" rotation="0 -90 0"></a-obj-model>-->
     <!--<a-obj-model src="#tower3" mtl="#tower-mtl" position="26 0 38"  scale=".06 .06 .06" rotation="0 -90 0"></a-obj-model>-->

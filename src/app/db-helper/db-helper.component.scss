@@ -1,0 +1,27 @@
+.overlay{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 99999;
+  width: 9rem;
+  background-color: #ffffff99;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid #909090;
+
+  button{
+    width: 50px;
+    height: 30px;
+    align-self: center;
+  }
+
+  p{
+    position: relative;
+    margin: 5px 0;
+    width: 100%;
+  }
+}

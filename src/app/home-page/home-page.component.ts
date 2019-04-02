@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../shared/data/data.service';
 import {Tower} from '../shared/tower.model';
+import {CITY_CONFIG} from '../shared/configurations/city';
+import {TowersService} from '../shared/services/towers/towers.service';
+import {Observable, Subscribable, Subscriber, Subscription} from 'rxjs';
+import {TowersListInterface} from '../shared/services/interfaces/towers-list';
 // import {ControllersService} from '../shared/services/controllers/controllers.service';
 const AFRAME_INSPECTOR = require('aframe-inspector');
 const AFRAME = require('aframe');
@@ -14,127 +18,25 @@ const Events = require('aframe-inspector/src/lib/Events');
   styleUrls: ['./home-page.component.scss']
 })
 
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   activeColor = '#a90000';
   defaultColor = '#ff0000';
-  // @todo: move to separate file/DB
-  cityConfig = {
-    towers: {
-      scale: '.009 .009 .009',
-      rotation: '0 -90 0',
-    }
-  };
 
-  towers: Tower[] = [
-    {
-      id: '0',
-      position: '9.277 0 6.91',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '1',
-      position: '9.457 0 6.91',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '2',
-      position: '9.637 0 7.26',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '3',
-      position: '9.45 0 7.6',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '4',
-      position: '9.087 0 6.91',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '5',
-      position: '9.78 0 7.6',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-    {
-      id: '6',
-      position: '9.78 0 6.89',
-      rotation: this.cityConfig.towers.rotation,
-      name: 'tower1',
-      src: 'tower1',
-      mtl: '',
-      scale: this.cityConfig.towers.scale,
-      sub_community: '1',
-      community: '1',
-      color: '',
-    },
-  ];
-  towersDBTest: any;
+  towersList: TowersListInterface[] = [];
+  towerSubscribe: Subscription;
+  towerTypes: Iterable<string>;
 
   constructor(
     private route: ActivatedRoute,
+    private elementRef: ElementRef,
     private router: Router,
     private _dataService: DataService,
-    // private _controllersService: ControllersService,
+    private _towersService: TowersService,
   ) { }
 
   ngOnInit() {
     // this.prepareTheTowerObject();
-    this.towersDBTest = this._dataService.getData();
-
-    console.log({Events: Events.prototype});
-    console.log('AFRAME_INSPECTOR', AFRAME_INSPECTOR);
-    console.log('AFRAME', AFRAME);
-    AFRAME.INSPECTOR.on('objectchanged', (e) => {
-      console.log({
-        position: e.position.x + ' ' + e.position.y + ' ' + e.position.z,
-        rotation: e.rotation.x + ' ' + e.rotation.y + ' ' + e.rotation.z,
-        scale: e.scale.x + ' ' + e.scale.y + ' ' + e.scale.z,
-      });
-    });
-
+    this._initTowerList();
     // Init controllers
     // this._controllersService.initControllers();
 
@@ -154,6 +56,11 @@ export class HomePageComponent implements OnInit {
     // entityEl.object3D.position.x += 5;
   }
 
+
+  ngOnDestroy() {
+    this.towerSubscribe.unsubscribe();
+  }
+
   public click(e: EventListener, i: number) {
     // this.router.navigate(['/floor',  i ]);
     console.log(e);
@@ -169,29 +76,30 @@ export class HomePageComponent implements OnInit {
   //   hoveredFlor.color = this.defaultColor;
   // }
 
-  public prepareTheTowerObject() {
+  // public prepareTheTowerObject() {
+  //
+  //   this.towers = {
+  //     ...this.towers,
+  //     ...this._towersService.getTowerBase({'tower1', '1' ,'1'})
+  //   };
+  // }
 
-    this.towers = {
-      ...this.towers,
-      ...this.getTowerBase(1)
-    };
-  }
+  private _initTowerList() {
 
-  private getTowerBase(id): Tower[] {
-    return [
-      {
-        id: '0',
-        position: '9.277 0 6.91',
-        rotation: this.cityConfig.towers.rotation,
-        name: 'tower1',
-        src: 'tower1',
-        mtl: '',
-        scale: this.cityConfig.towers.scale,
-        sub_community: '1',
-        community: '1',
-        color: '',
-      }
-    ];
+    this.towerSubscribe = this._towersService.getTowersList()
+      .subscribe(towers => {
+        const towerListTemp: TowersListInterface[] = [];
+        // @todo: Need to optimize it
+        towers.map(item => {
+          towerListTemp[item.subCommunity] = towerListTemp[item.subCommunity] ?
+            [item, ...towerListTemp[item.subCommunity]] :
+            [item];
+        });
+
+        // Added for preventing refreshing models list after updating data
+        this.towersList = this.towersList.length ? this.towersList : towerListTemp;
+        this.towerTypes = new Set(towers.map(tower => tower.src));
+      });
   }
 
 }
