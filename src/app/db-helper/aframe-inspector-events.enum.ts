@@ -1,4 +1,4 @@
 export enum AframeInspectorEventsEnum {
-  change = 'objectchanged',
-  select = 'objectselected',
+  change = 'entityupdate',
+  select = 'entityselect',
 }

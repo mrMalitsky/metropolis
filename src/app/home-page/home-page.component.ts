@@ -5,11 +5,12 @@ import {Tower} from '../shared/tower.model';
 import {CITY_CONFIG} from '../shared/configurations/city';
 import {TowersService} from '../shared/services/towers/towers.service';
 import {Observable, Subscribable, Subscriber, Subscription} from 'rxjs';
-import {TowersListInterface} from '../shared/services/interfaces/towers-list';
+import {TowersListInterface} from '../shared/interfaces/towers-list';
+import {TooltipComponent} from '../shared/a-frame-components/tooltip.component';
 // import {ControllersService} from '../shared/services/controllers/controllers.service';
 const AFRAME_INSPECTOR = require('aframe-inspector');
 const AFRAME = require('aframe');
-// const Events = require('events').EventEmitter;
+const ENVIRONMENT = require('aframe-environment-component');
 const Events = require('aframe-inspector/src/lib/Events');
 
 @Component({
@@ -19,7 +20,7 @@ const Events = require('aframe-inspector/src/lib/Events');
 })
 
 export class HomePageComponent implements OnInit, OnDestroy {
-  activeColor = '#a90000';
+  activeColor = '#ff8f8a';
   defaultColor = '#ff0000';
 
   towersList: TowersListInterface[] = [];
@@ -32,6 +33,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private router: Router,
     private _dataService: DataService,
     private _towersService: TowersService,
+    private _tooltipComponent: TooltipComponent,
   ) { }
 
   ngOnInit() {
@@ -90,12 +92,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
       .subscribe(towers => {
         const towerListTemp: TowersListInterface[] = [];
         // @todo: Need to optimize it
+        console.log(towers);
         towers.map(item => {
           towerListTemp[item.subCommunity] = towerListTemp[item.subCommunity] ?
             [item, ...towerListTemp[item.subCommunity]] :
             [item];
         });
-
+        console.log(this.towersList);
         // Added for preventing refreshing models list after updating data
         this.towersList = this.towersList.length ? this.towersList : towerListTemp;
         this.towerTypes = new Set(towers.map(tower => tower.src));

@@ -20,6 +20,7 @@ import { TowerComponent } from './tower/tower.component';
 import { FloorComponent } from './floor/floor.component';
 import {TowersService} from './shared/services/towers/towers.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {TooltipComponent} from './shared/a-frame-components/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [TowersService],
+  providers: [TowersService, TooltipComponent],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -3,6 +3,7 @@ import {TowersService} from '../shared/services/towers/towers.service';
 import {Tower} from '../shared/tower.model';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AframeInspectorEventsEnum} from './aframe-inspector-events.enum';
+import {ObjectTypeEnum} from '../shared/object-type.enum';
 const AFRAME = require('aframe');
 
 @Component({
@@ -36,14 +37,20 @@ export class DbHelperComponent implements OnInit {
     AFRAME.INSPECTOR.on(AframeInspectorEventsEnum.select, this._onObjectSelected);
   }
 
+  /**
+   * Update tower
+   */
   public onClickSave(): void {
     const tower = {...this.selectedTower};
     // Clear Id from the tower model
     delete tower.id;
-    console.log(tower);
+
     this._towersService.updateTower(this.selectedTower.id, tower);
   }
 
+  /**
+   * Add new tower
+   */
   public onAddTower(): void {
 
     const newTower: Tower = this._towersService.getTowerBase(this.newTowerForm.value);
@@ -55,7 +62,16 @@ export class DbHelperComponent implements OnInit {
     this._towersService.insertTower(newTower);
   }
 
-  private _onObjectChanged = (e) => {
+  /**
+   * On object has been changed
+   */
+  private _onObjectChanged = (object) => {
+    const e = object.object3D;
+
+    if (!e.el) {
+      return;
+    }
+
     // console.log(e);
     this.selectedTower = {
       ...this.selectedTower,
@@ -74,12 +90,22 @@ export class DbHelperComponent implements OnInit {
         scale: { x: e.scale.x.toFixed(3), y: e.scale.y.toFixed(3), z: e.scale.z.toFixed(3) },
         src:  e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length),
         subCommunity:  e.parent.el.dataset.id,
-      }
+        type: this._towersService.getObjectType(e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length))
+  }
     };
   }
 
-  private _onObjectSelected = (e) => {
-    // console.log(e);
+  /**
+   * On object has been selected
+   */
+  private _onObjectSelected = (object) => {
+    const e = object.object3D;
+
+    if (!e.el) {
+      return;
+    }
+
+    // Create tower object with updated values
     this.selectedTower = {
       ...this._towersService.getTowerBase({towerType: 'tower1'}),
       ...{
@@ -95,8 +121,11 @@ export class DbHelperComponent implements OnInit {
           z: (e.rotation.z * (180 / Math.PI)).toFixed(2),
         },
         scale: { x: e.scale.x.toFixed(3), y: e.scale.y.toFixed(3), z: e.scale.z.toFixed(3) },
-        src:  e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length),
-        subCommunity:  e.parent.el.dataset.id,
+        src:   e.el.attributes.src ? e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length) : '',
+        subCommunity:  e.parent.el ? e.parent.el.dataset.id : '',
+        type: e.el.attributes.src ?
+          this._towersService.getObjectType(e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length)) :
+          null,
       }
     };
   }

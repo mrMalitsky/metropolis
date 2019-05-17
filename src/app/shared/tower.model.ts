@@ -1,4 +1,5 @@
-import {CoordinatesInterface} from './services/interfaces/coordinates';
+import {CoordinatesInterface} from './interfaces/coordinates';
+import {ObjectTypeEnum} from './object-type.enum';
 
 export class Tower {
 
@@ -49,8 +50,13 @@ export class Tower {
 
   /**
    * Color of the tower (example: '1')
-   * Using in testing proposes and for homering effect
+   * Using in testing proposes and for hovering effect
    */
   color?: string;
+
+  /**
+   * Type of object (example: ObjectTypeEnum.tower)
+   */
+  type: ObjectTypeEnum;
 
 }

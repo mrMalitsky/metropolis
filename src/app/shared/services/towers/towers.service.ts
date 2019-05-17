@@ -5,6 +5,7 @@ import {CITY_CONFIG} from '../../configurations/city';
 import {Observable} from 'rxjs';
 import {DataService} from '../../data/data.service';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {ObjectTypeEnum} from '../../object-type.enum';
 
 @Injectable({providedIn: 'root'})
 export class TowersService {
@@ -22,9 +23,13 @@ export class TowersService {
       .snapshotChanges()
       .pipe(
         map(
-          // Add id property tio Tower model for changing manipulations
+          // Add id property to Tower model for changing manipulations
           actions =>
-            actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))
+            actions.map(a => ({
+              id: a.payload.doc.id,
+              ...a.payload.doc.data(),
+              color: a.payload.doc.data().type === ObjectTypeEnum.tree ? '#dcffac' : '#ffffff',
+            }))
         ),
       );
 
@@ -48,6 +53,16 @@ export class TowersService {
   }
 
   /**
+   * Update All data
+   */
+  public updateAll() {
+    this.towersList$.subscribe(towers => {
+      console.log(towers);
+    });
+    this._dataService.updateAll();
+  }
+
+  /**
    * Delete tower
    * @param {string} key
    */
@@ -66,6 +81,7 @@ export class TowersService {
       subCommunity: options.subCommunity || '',
       community: options.community || '',
       color: '',
+      type: ObjectTypeEnum.tower,
     };
   }
 
@@ -82,4 +98,9 @@ export class TowersService {
     document.querySelector('a-scene').appendChild(el);
   }
 
+  public getObjectType(src: string): ObjectTypeEnum {
+    return ['tree_l', 'tree_s'].indexOf(src) === -1 ?
+      ObjectTypeEnum.tree :
+      ObjectTypeEnum.tower;
+  }
 }
