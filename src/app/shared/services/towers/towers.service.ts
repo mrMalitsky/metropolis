@@ -6,9 +6,13 @@ import {Observable} from 'rxjs';
 import {DataService} from '../../data/data.service';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import {ObjectTypeEnum} from '../../object-type.enum';
+import {TowersListInterface} from '../../interfaces/towers-list';
 
 @Injectable({providedIn: 'root'})
 export class TowersService {
+
+  private activeColor = '#ff8f8a';
+  private defaultColor = '#ffffff';
 
   public towersList$: Observable<Tower[]>;
 
@@ -98,9 +102,42 @@ export class TowersService {
     document.querySelector('a-scene').appendChild(el);
   }
 
+  /**
+   * Get object type
+   */
   public getObjectType(src: string): ObjectTypeEnum {
     return ['tree_l', 'tree_s'].indexOf(src) === -1 ?
       ObjectTypeEnum.tree :
       ObjectTypeEnum.tower;
+  }
+
+  /**
+   * Select tower
+   */
+  public selectTower(list: Tower[][], id: string): Tower {
+    let active: Tower;
+    list.map(
+
+      // Filter everything what is now tower
+      (section) => section.filter(
+          (tower) => this.getObjectType(tower.src) !== ObjectTypeEnum.tower)
+      .map((tower) => {
+
+      // Highlight active object
+      tower.color = tower.id === id ? this.activeColor : this.defaultColor;
+
+      if (tower.id === id) {
+        active = tower;
+      }
+    }));
+
+    return active;
+  }
+
+  /**
+   * Add tower tooltip
+   */
+  public addTooltip(tower: Tower): void {
+    // Show tooltip
   }
 }

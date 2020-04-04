@@ -1,6 +1,9 @@
 
 <!-- DB Helper Component-->
-<app-db-helper></app-db-helper>
+<!--<app-db-helper></app-db-helper>-->
+
+<!-- Object info area-->
+<app-object-info [element]="activeTower"></app-object-info>
 
 <a-scene>
   <a-assets>
@@ -39,8 +42,8 @@
 
   <!-- Mouse controller -->
   <a-entity cursor="rayOrigin: mouse"></a-entity>
-  <!--<a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>-->
-  <!--<a-entity position="0 2.2 4">-->
+  <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
+  <!--<a-e position="0 2.2 4">-->
     <!--<a-entity camera look-controls wasd-controls>-->
       <!--<a-entity position="0 0 -3"-->
                 <!--geometry="primitive: ring; radiusInner: 200; radiusOuter: 300;"-->
@@ -208,45 +211,26 @@
   <!--<a-entity *ngIf="towersList" id="Towers" >-->
     <a-entity *ngFor="let towers of towersList | keyvalue" [attr.id]="'towers_' + towers.key" [attr.data-id]="towers.key" >
 
-      <a-obj-model
+      <a-entity
         *ngFor="let tower of towers.value; let i = index"
-        [attr.data-id]="tower.id"
-        [attr.id]="i + '_' + tower.src"
-        [attr.src]="'#' + tower.src"
-        [attr.position]="tower.position.x + ' ' + tower.position.y + ' ' + tower.position.z"
-        [attr.scale]="tower.scale.x + ' ' + tower.scale.y + ' ' + tower.scale.z"
-        [attr.rotation]="tower.rotation.x + ' ' + tower.rotation.y + ' ' + tower.rotation.z"
-        [attr.color]="tower.color"
-        (click)="click($event, tower.id)"
-      ></a-obj-model>
+        [attr.id]="tower.id"
+      >
+        <a-obj-model
+          [attr.data-id]="tower.id"
+          [attr.id]="i + '_' + tower.src"
+          [attr.src]="'#' + tower.src"
+          [attr.position]="tower.position.x + ' ' + tower.position.y + ' ' + tower.position.z"
+          [attr.scale]="tower.scale.x + ' ' + tower.scale.y + ' ' + tower.scale.z"
+          [attr.rotation]="tower.rotation.x + ' ' + tower.rotation.y + ' ' + tower.rotation.z"
+          [attr.color]="tower.color"
+          (click)="onClick($event, tower.id)"
+        ></a-obj-model>
+        <!--(mouseenter)="mouseEnter(tower.id)"-->
+        <!--(mouseleave)="mouseLeave(tower.id)"-->
         <!--[attr.mtl]="'#tree-mtl'"-->
 
-
+      </a-entity>
     </a-entity>
-  <!--</a-entity>-->
-
-
-  <!--<a-sky color="#ECECEC"></a-sky>-->
-
-  <!--&lt;!&ndash;<a-entity&ndash;&gt;-->
-    <!--&lt;!&ndash;gltf-model="#trees-gltf"&ndash;&gt;-->
-    <!--&lt;!&ndash;height="2"&ndash;&gt;-->
-    <!--&lt;!&ndash;width="2"&ndash;&gt;-->
-    <!--&lt;!&ndash;scale="2.0 2.0 2.0" position="1 1 -7'"&ndash;&gt;-->
-    <!--&lt;!&ndash;rotation="0 35 0"&ndash;&gt;-->
-  <!--&lt;!&ndash;&gt;</a-entity>&ndash;&gt;-->
-
-  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="13.5 0 18"  scale=".2 .2 .2"></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="4.5 0 -7"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="1 0 -5"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="5 0 -2"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#tree-obj" mtl="#tree-mtl" position="2.2 0 -8"  scale=".2 .2 .2" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="4 0 -9" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="7 0 -2.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="6 0 -4.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="8 0 -6.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="9 0 -4.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
-  <!--&lt;!&ndash;<a-obj-model src="#city-obj" mtl="#city-mtl" position="12 0 -5.5" scale="3 3 3" ></a-obj-model>&ndash;&gt;-->
 
   <!-- Camera -->
   <!--<a-entity position="5.6 .5 4.5" rotation="0 68 0" scale=".2 .2 .2">-->

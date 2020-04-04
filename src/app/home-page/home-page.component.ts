@@ -20,10 +20,8 @@ const Events = require('aframe-inspector/src/lib/Events');
 })
 
 export class HomePageComponent implements OnInit, OnDestroy {
-  activeColor = '#ff8f8a';
-  defaultColor = '#ff0000';
-
-  towersList: TowersListInterface[] = [];
+  towersList: Tower[][] = [];
+  activeTower: Tower;
   towerSubscribe: Subscription;
   towerTypes: Iterable<string>;
 
@@ -63,42 +61,46 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.towerSubscribe.unsubscribe();
   }
 
-  public click(e: EventListener, i: number) {
-    // this.router.navigate(['/floor',  i ]);
-    console.log(e);
+  /**
+   * On click handler
+   */
+  public onClick(e: any, id: string) {
+    console.log(e, e.target.object3D.position);
+    this.activeTower = this._towersService.selectTower(this.towersList, id);
+    this._towersService.addTooltip(this.activeTower);
+
+    const scene = document.querySelector('a-scene');
+    const box = document.createElement('a-cube');
+    scene.appendChild(box);
+    box.setAttribute('id', 'highlighter');
+    box.setAttribute('color', '#ff0024');
+    box.setAttribute('height', '2');
+    box.setAttribute('width', '2');
+    box.setAttribute('position', `${e.target.object3D.position.x} ${e.target.object3D.position.y} ${e.target.object3D.position.z}`);
+    console.log(box);
   }
 
-  // public mouseEnter(id: number) {
-  //   const hoveredFlor = this.towers.filter((flor) => flor.id === id)[0];
-  //   hoveredFlor.color = this.activeColor;
-  // }
-  //
-  // public mouseLeave(id: number) {
-  //   const hoveredFlor = this.towers.filter((flor) => flor.id === id)[0];
-  //   hoveredFlor.color = this.defaultColor;
-  // }
+  public mouseEnter(id: number) {
+    // Nothing fo now
+  }
 
-  // public prepareTheTowerObject() {
-  //
-  //   this.towers = {
-  //     ...this.towers,
-  //     ...this._towersService.getTowerBase({'tower1', '1' ,'1'})
-  //   };
-  // }
+  public mouseLeave(id: number) {
+    // Nothing fo now
+  }
 
   private _initTowerList() {
 
     this.towerSubscribe = this._towersService.getTowersList()
       .subscribe(towers => {
-        const towerListTemp: TowersListInterface[] = [];
+        const towerListTemp: Tower[][] = [];
         // @todo: Need to optimize it
-        console.log(towers);
         towers.map(item => {
           towerListTemp[item.subCommunity] = towerListTemp[item.subCommunity] ?
             [item, ...towerListTemp[item.subCommunity]] :
             [item];
         });
-        console.log(this.towersList);
+        console.log(towerListTemp);
+
         // Added for preventing refreshing models list after updating data
         this.towersList = this.towersList.length ? this.towersList : towerListTemp;
         this.towerTypes = new Set(towers.map(tower => tower.src));

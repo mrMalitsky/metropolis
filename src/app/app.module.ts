@@ -21,6 +21,7 @@ import { FloorComponent } from './floor/floor.component';
 import {TowersService} from './shared/services/towers/towers.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {TooltipComponent} from './shared/a-frame-components/tooltip.component';
+import { ObjectInfoComponent } from './object-info/object-info.component';
 
 @NgModule({
   declarations: [

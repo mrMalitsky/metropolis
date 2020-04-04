@@ -75,23 +75,21 @@ export class DbHelperComponent implements OnInit {
     // console.log(e);
     this.selectedTower = {
       ...this.selectedTower,
-      ...{
-        id: e.el.dataset.id,
-        position: {
-          x:  String(e.position.x.toFixed(3)),
-          y:  String(e.position.y.toFixed(3)),
-          z:  String(e.position.z.toFixed(3)),
-        },
-        rotation: {
-          x: (e.rotation.x * (180 / Math.PI)).toFixed(2),
-          y: (e.rotation.y * (180 / Math.PI)).toFixed(2),
-          z: (e.rotation.z * (180 / Math.PI)).toFixed(2),
-        },
-        scale: { x: e.scale.x.toFixed(3), y: e.scale.y.toFixed(3), z: e.scale.z.toFixed(3) },
-        src:  e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length),
-        subCommunity:  e.parent.el.dataset.id,
-        type: this._towersService.getObjectType(e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length))
-  }
+      id: e.el.dataset.id,
+      position: {
+        x:  String(e.position.x.toFixed(3)),
+        y:  String(e.position.y.toFixed(3)),
+        z:  String(e.position.z.toFixed(3)),
+      },
+      rotation: {
+        x: (e.rotation.x * (180 / Math.PI)).toFixed(2),
+        y: (e.rotation.y * (180 / Math.PI)).toFixed(2),
+        z: (e.rotation.z * (180 / Math.PI)).toFixed(2),
+      },
+      scale: { x: e.scale.x.toFixed(3), y: e.scale.y.toFixed(3), z: e.scale.z.toFixed(3) },
+      src:  e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length),
+      subCommunity:  e.parent.el.dataset.id,
+      type: this._towersService.getObjectType(e.el.attributes.src.value.substring(1, e.el.attributes.src.value.length))
     };
   }
 
